@@ -40,6 +40,9 @@ public class Exceptions {
 	public static Exceptions notImplemented() {
 		return create(HttpStatus.SERVICE_UNAVAILABLE, "not-implemented");
 	}
+	public static Exceptions notSupported(String messageId) {
+		return create(HttpStatus.SERVICE_UNAVAILABLE, messageId);
+	}
 	public BaseRuntimeException get() {
 		return new BaseRuntimeException(this.status, messageId, extra, cause); 
 	}

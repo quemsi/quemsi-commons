@@ -38,6 +38,12 @@ public class Views {
 		public interface WithFk extends FkBase {
 		}
 	}
+
 	public interface AllWithFk extends Timer.WithFk, Datasource.WithFk, LocalDrive.WithFk, GoogleDrive.WithFk, Storage.WithFk {
+	}
+
+	public class Agent {
+		public interface AgentModel extends BasicInfo {
+		}
 	}
 }
