@@ -8,15 +8,12 @@ import org.springframework.http.HttpStatus;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class BaseRuntimeException extends RuntimeException {
     private static final long serialVersionUID = -2787248463270168252L;
-    @Getter
     private final HttpStatus status;
-    @Getter
     private final String messageId;
 	private String message;
 	private Map<String, Object> extra;

@@ -87,12 +87,12 @@ public class Exceptions {
 	}
 	@FunctionalInterface
 	public static interface ConsumerWithException<T, E extends Exception> {
-	    void apply(T t) throws E;
+	    void accept(T t) throws E;
 	}
 	public static <T, E extends Exception> Consumer<T> wrapEx(ConsumerWithException<T, E> fe) {
         return arg -> {
             try {
-                fe.apply(arg);
+                fe.accept(arg);
             } catch (Exception e) {
                 throw Exceptions.server("exception-occured").withCause(e).get();
             }
