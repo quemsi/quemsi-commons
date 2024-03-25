@@ -76,7 +76,7 @@ public class Exceptions {
 	public static interface FunctionWithException<T, R, E extends Exception> {
 	    R apply(T t) throws E;
 	}
-	public static <T, R, E extends Exception> Function<T, R> wrapEx(FunctionWithException<T, R, E> fe) {
+	public static <T, R, E extends Exception> Function<T, R> wrapFunction(FunctionWithException<T, R, E> fe) {
         return arg -> {
             try {
                 return fe.apply(arg);
@@ -89,7 +89,7 @@ public class Exceptions {
 	public static interface ConsumerWithException<T, E extends Exception> {
 	    void accept(T t) throws E;
 	}
-	public static <T, E extends Exception> Consumer<T> wrapEx(ConsumerWithException<T, E> fe) {
+	public static <T, E extends Exception> Consumer<T> wrapConsumer(ConsumerWithException<T, E> fe) {
         return arg -> {
             try {
                 fe.accept(arg);
