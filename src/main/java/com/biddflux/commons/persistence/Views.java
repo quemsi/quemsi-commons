@@ -39,7 +39,12 @@ public class Views {
 		}
 	}
 
-	public interface AllWithFk extends Timer.WithFk, Datasource.WithFk, LocalDrive.WithFk, GoogleDrive.WithFk, Storage.WithFk {
+	public class AgentError {
+		public interface WithFk extends FkBase{
+		}
+	}
+	
+	public interface AllWithFk extends Timer.WithFk, Datasource.WithFk, LocalDrive.WithFk, GoogleDrive.WithFk, Storage.WithFk, AgentError.WithFk {
 	}
 
 	public class Agent {

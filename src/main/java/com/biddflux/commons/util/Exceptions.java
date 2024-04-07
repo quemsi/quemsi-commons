@@ -12,6 +12,8 @@ public class Exceptions {
 	private HttpStatus status;
 	private String messageId;
 	private Map<String, Object> extra;
+	private String entityType;
+	private String entityName;
 	private Throwable cause;
 	private Exceptions() {}
 	
@@ -44,7 +46,7 @@ public class Exceptions {
 		return create(HttpStatus.SERVICE_UNAVAILABLE, messageId);
 	}
 	public BaseRuntimeException get() {
-		return new BaseRuntimeException(this.status, messageId, extra, cause); 
+		return new BaseRuntimeException(this.status, messageId, extra, cause, this.entityType, this.entityName); 
 	}
 	public void throwIt() {
 		throw get(); 
@@ -66,7 +68,11 @@ public class Exceptions {
 		this.cause = cause;
 		return this;
 	}
-	
+	public Exceptions onEntity(String entityType, String entityName){
+		this.entityType = entityType;
+		this.entityName = entityName;
+		return this;
+	}
 	public static interface ExceptionSupplier<T extends Exception> extends Supplier<T> {
 		default void throwIt() {
 			get();

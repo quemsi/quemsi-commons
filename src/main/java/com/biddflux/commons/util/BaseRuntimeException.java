@@ -17,12 +17,16 @@ public class BaseRuntimeException extends RuntimeException {
     private final String messageId;
 	private String message;
 	private Map<String, Object> extra;
+	private String entityType;
+	private String entityName;
 
-    public BaseRuntimeException(HttpStatus status, String messageId, Map<String, Object> extra, Throwable cause) {
+    public BaseRuntimeException(HttpStatus status, String messageId, Map<String, Object> extra, Throwable cause, String entityType, String entityName) {
 		super(cause);
 		this.status = status;
 		this.messageId = messageId;
 		this.extra = extra;
+		this.entityType = entityType;
+		this.entityName = entityName;
 	}
     
     public BaseRuntimeException(HttpStatus httpStatus, String messageId, Throwable t) {
@@ -44,6 +48,7 @@ public class BaseRuntimeException extends RuntimeException {
         this.message = message;
     }
     
+	
     public Map<String, Object> getExtra(){
     	return extra;
     }
@@ -55,7 +60,7 @@ public class BaseRuntimeException extends RuntimeException {
     	this.extra.put(key, val);
     	return this;
     }
-    
+
     public BaseRuntimeException(HttpStatus httpStatus) {
     	this(httpStatus, null);
     }

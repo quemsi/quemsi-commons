@@ -76,4 +76,13 @@ public class CommonOps {
 	public static int compareToWithDefZero(BigDecimal n1, BigDecimal n2) {
 		return orZero(n1).compareTo(orZero(n2));
 	}
+	public static String stringOf(Object obj){
+		if(obj == null){
+			return null;
+		}
+		if(obj instanceof String str){
+			return str;
+		}
+		return obj.toString();
+	}
 }
