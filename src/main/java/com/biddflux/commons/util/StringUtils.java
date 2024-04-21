@@ -31,4 +31,20 @@ public class StringUtils extends org.springframework.util.StringUtils {
     	e.printStackTrace(new PrintWriter(sw));
     	return sw.toString();
     }
+    public static String combine(String first, String second, String delimeter){
+        if(first == null && second == null){
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        if(first != null){
+            sb.append(first);
+        }
+        if(!isEmptyOrNull(first) && !isEmptyOrNull(second)){
+            sb.append(delimeter);
+        }
+        if(second != null){
+            sb.append(second);
+        }
+        return sb.toString();
+    }
 }
