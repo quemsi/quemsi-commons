@@ -121,4 +121,17 @@ public class Exceptions {
             }
         };
 	}
+	@FunctionalInterface
+	public static interface SupplierWithException<R, E extends Exception> {
+	    R get() throws E;
+	}
+	public static <R, E extends Exception> Supplier<R> wrapSupplier(SupplierWithException<R, E> fe) {
+        return () -> {
+            try {
+                return fe.get();
+            } catch (Exception e) {
+                throw Exceptions.server("exception-occured").withCause(e).get();
+            }
+        };
+	}
 }
