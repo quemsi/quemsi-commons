@@ -104,4 +104,21 @@ public class Exceptions {
             }
         };
 	}
+
+	@FunctionalInterface
+	public static interface RunnableWithException<E extends Exception>{
+	    void run() throws E;
+	}
+	public static <E extends Exception> Runnable wrapRunnable(RunnableWithException<E> fe) {
+        return () -> {
+            try {
+                fe.run();
+            } catch (Exception e) {
+				if(e instanceof InterruptedException){
+					Thread.currentThread().interrupt();
+				}
+                throw Exceptions.server("exception-occured").withCause(e).get();
+            }
+        };
+	}
 }
