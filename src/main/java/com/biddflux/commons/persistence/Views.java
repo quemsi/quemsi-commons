@@ -50,10 +50,12 @@ public class Views {
 		public interface WithExtra extends WithFk {
 		}
 	}
-	public interface AllWithFk extends Timer.WithFk, Datasource.WithFk, LocalDrive.WithFk, GoogleDrive.WithFk, Storage.WithFk, AgentError.WithFk, AgentCrud.WithFk {
+	public interface AllWithFk extends Timer.WithFk, Datasource.WithFk, LocalDrive.WithFk, GoogleDrive.WithFk, Storage.WithFk, AgentError.WithFk, Agent.WithFk {
 	}
 
 	public class Agent {
+		public interface WithFk extends FkBase{
+		}
 		public interface AgentModel extends BasicInfo {
 		}
 	}
