@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public abstract class BaseDto<K extends Serializable> {
+public abstract class BaseDto<K extends Serializable> implements Serializable {
 	@JsonView(Views.OnlyIdName.class)
 	private K id;
 	private boolean active;
