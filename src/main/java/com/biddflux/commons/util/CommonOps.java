@@ -85,4 +85,13 @@ public class CommonOps {
 		}
 		return obj.toString();
 	}
+	public static boolean valueOf(Boolean first, Boolean second, boolean fallback){
+		if(first != null){
+			return first.booleanValue();
+		}
+		if(second != null){
+			return second.booleanValue();
+		}
+		return fallback;
+	}
 }
