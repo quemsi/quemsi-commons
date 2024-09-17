@@ -73,7 +73,7 @@ public class BaseRuntimeException extends RuntimeException {
 			s.append("message :").append(message);
 		}
 		if(getCause() != null) {
-			s.append("caused by").append(getCause().getMessage());
+			s.append(" cause message : ").append(getCause().getMessage());
 		}
 		return s.toString();
 	}
