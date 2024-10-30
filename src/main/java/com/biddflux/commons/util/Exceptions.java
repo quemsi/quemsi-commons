@@ -39,6 +39,9 @@ public class Exceptions {
 	public static Exceptions auth(String messageId) {
 		return create(HttpStatus.UNAUTHORIZED, messageId);
 	}
+	public static Exceptions forbidden(String messageId){
+		return create(HttpStatus.FORBIDDEN, messageId);
+	}
 	public static Exceptions notImplemented() {
 		return create(HttpStatus.SERVICE_UNAVAILABLE, "not-implemented");
 	}
