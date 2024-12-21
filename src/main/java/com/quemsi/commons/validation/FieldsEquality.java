@@ -8,8 +8,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
-
 
 @Target({ TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
@@ -20,7 +18,7 @@ public @interface FieldsEquality {
 
     Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+    Class<?>[] payload() default {};
 
     String firstFieldName();
 
