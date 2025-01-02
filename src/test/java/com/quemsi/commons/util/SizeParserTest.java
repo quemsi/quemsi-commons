@@ -36,4 +36,14 @@ public class SizeParserTest {
         String size = SizeParser.toString(26106127360L);
         assertThat(size, equalTo("24.3 GB"));
     }
+    @Test
+    public void testGivenDecimalWhenParseThenShouldReturnDecimalToo(){
+        long bytes = SizeParser.parse("2.2", "GB");
+        assertThat(bytes, equalTo(2362232012L));
+    }
+    @Test
+    public void testGivenDecimalBytesWhenParseThenShouldReturnDecimalToo(){
+        String gbs = SizeParser.toString(2362232012L);
+        assertThat(gbs, equalTo("2.2 GB"));
+    }
 }

@@ -13,11 +13,11 @@ public class SizeParser {
         double ret = Double.parseDouble(val);
         switch (type) {
             case "GB":
-                return (long)ret * GB_FACTOR;
+                return (long)(ret * GB_FACTOR);
             case "MB":
-                return (long)ret * MB_FACTOR;
+                return (long)(ret * MB_FACTOR);
             case "KB":
-                return (long)ret * KB_FACTOR;
+                return (long)(ret * KB_FACTOR);
         }
         return -1;
     }
