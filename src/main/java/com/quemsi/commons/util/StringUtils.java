@@ -3,10 +3,6 @@ package com.quemsi.commons.util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtils extends org.springframework.util.StringUtils {
 
     public static String[] commaDelimitedListToStringArray(String str) {
