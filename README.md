@@ -1,9 +1,13 @@
-# Getting Started
+# QUEMSI — Data management for Developers
+Quemsi is a data management platform built for developers. You can get more info at [quemsi.com](https://quemsi.com)
 
-### Reference Documentation
-For further reference, please consider the following sections:
+## quemsi-commons
+This repository contains common utility classes for quemsi. You can analyze, build and use as you wish.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/#build-image)
+### Technology Stack
+- JDK 21
+- Spring
+- Hibernate
+- Jackson
+- Commons IO
 
