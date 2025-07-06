@@ -94,4 +94,15 @@ public class CommonOps {
 		}
 		return fallback;
 	}
+
+	public static boolean isTrue(String str){
+		if(str != null){
+			String invariant = str.toUpperCase();
+			if("YES".equals(invariant) || "TRUE".equals(invariant) 
+				|| "Y".equals(invariant) || "T".equals(invariant)){
+				return true;
+			}
+		}
+		return false;
+	}
 }

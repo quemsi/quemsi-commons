@@ -14,6 +14,11 @@ public class JsonUtils {
     public boolean asBoolean(JsonNode node, boolean def){
         return node == null?def:node.asBoolean();
     }
+
+    public int asInteger(JsonNode node, int def){
+        return node == null?def:node.asInt();
+    }
+
     @SuppressWarnings("unchecked")
     public <T> Set<T> asSet(JsonNode node){
         if(node == null){
