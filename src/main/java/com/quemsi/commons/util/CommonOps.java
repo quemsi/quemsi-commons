@@ -1,6 +1,7 @@
 package com.quemsi.commons.util;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 
 public class CommonOps {
 	private static final int ROUND_PRECISION = 2;
@@ -105,4 +106,15 @@ public class CommonOps {
 		}
 		return false;
 	}
+
+  public static <T> LinkedList<T> reverse(LinkedList<T> list) {
+		if(list == null){
+			return null;
+		}
+		LinkedList<T> reversed = new LinkedList<>();
+		for(T t: list){
+			reversed.addFirst(t);
+		}
+		return reversed;
+  }
 }
