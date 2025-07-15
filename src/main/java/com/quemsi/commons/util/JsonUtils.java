@@ -1,5 +1,6 @@
 package com.quemsi.commons.util;
 
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,12 @@ public class JsonUtils {
             return null;
         }
         return objectMapper.convertValue(node, Set.class);    
+    }
+    @SuppressWarnings("unchecked")
+    public <T> LinkedList<T> asLinkedList(JsonNode node){
+        if(node == null){
+            return null;
+        }
+        return objectMapper.convertValue(node, LinkedList.class);    
     }
 }

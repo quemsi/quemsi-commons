@@ -2,6 +2,9 @@ package com.quemsi.commons.util;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public class CommonOps {
 	private static final int ROUND_PRECISION = 2;
@@ -107,7 +110,7 @@ public class CommonOps {
 		return false;
 	}
 
-  public static <T> LinkedList<T> reverse(LinkedList<T> list) {
+  	public static <T> LinkedList<T> reverse(LinkedList<T> list) {
 		if(list == null){
 			return null;
 		}
@@ -116,5 +119,17 @@ public class CommonOps {
 			reversed.addFirst(t);
 		}
 		return reversed;
-  }
+  	}
+
+	public static <K, V> BiFunction<K, V, V> mapValueSupplier(Supplier<V> supplier){
+		return (k, v) -> {
+			if(v == null){
+				v = supplier.get();
+			}
+			return v;
+		};
+	}
+	public static <K, V> V getOrInit(Map<K, V> map, K key, Supplier<V> supplier){
+		return map.compute(key, mapValueSupplier(supplier));
+	}
 }
