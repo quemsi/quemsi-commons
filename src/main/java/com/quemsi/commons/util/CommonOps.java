@@ -103,7 +103,9 @@ public class CommonOps {
 		if(str != null){
 			String invariant = str.toUpperCase();
 			if("YES".equals(invariant) || "TRUE".equals(invariant) 
-				|| "Y".equals(invariant) || "T".equals(invariant)){
+				|| "Y".equals(invariant) || "T".equals(invariant)
+				|| "1".equals(invariant)
+				){
 				return true;
 			}
 		}
@@ -131,5 +133,11 @@ public class CommonOps {
 	}
 	public static <K, V> V getOrInit(Map<K, V> map, K key, Supplier<V> supplier){
 		return map.compute(key, mapValueSupplier(supplier));
+	}
+	public static <K, V> V getOrDefault(Map<K, V> map, K key, Supplier<V> supplier){
+		if(map.containsKey(key)){
+			return map.get(key);
+		}
+		return supplier.get();
 	}
 }

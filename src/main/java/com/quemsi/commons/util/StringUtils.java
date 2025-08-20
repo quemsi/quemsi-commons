@@ -22,6 +22,25 @@ public class StringUtils extends org.springframework.util.StringUtils {
     public static String trim(String str) {
     	return str==null?str:str.trim();
     }
+    public static String trim(String str, String front, String end) {
+    	if(str == null){
+            return null;
+        }
+        boolean retry = true;
+        while(retry){
+            retry = false;
+            boolean frontMatched = !isEmptyOrNull(front) && str.startsWith(front);
+            if(frontMatched && !isEmptyOrNull(end) && str.contains(end)){
+                int index = str.lastIndexOf(end);
+                if(index + end.length() == str.length()){
+                    str = str.substring(front.length(), index);
+                    retry = true;
+                }
+            }
+        }
+        
+        return str;
+    }
     public static String stackTraceOf(Exception e) {
     	StringWriter sw = new StringWriter();
     	e.printStackTrace(new PrintWriter(sw));
