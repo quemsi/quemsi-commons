@@ -30,10 +30,6 @@ public class Views {
 		public interface WithFk extends FkBase {
 		}
 	}
-	public class GoogleDrive {
-		public interface WithFk extends FkBase {
-		}
-	}
 	public class Storage {
 		public interface WithFk extends FkBase {
 		}
@@ -50,7 +46,7 @@ public class Views {
 		public interface WithExtra extends WithFk {
 		}
 	}
-	public interface AllWithFk extends Timer.WithFk, Datasource.WithFk, LocalDrive.WithFk, GoogleDrive.WithFk, Storage.WithFk, AgentError.WithFk, Agent.WithFk {
+	public interface AllWithFk extends Timer.WithFk, Datasource.WithFk, LocalDrive.WithFk, Storage.WithFk, AgentError.WithFk, Agent.WithFk {
 	}
 
 	public class Agent {
