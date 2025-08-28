@@ -27,18 +27,21 @@ public class StringUtils extends org.springframework.util.StringUtils {
             return null;
         }
         boolean retry = true;
-        while(retry){
+        while (retry) {
             retry = false;
-            boolean frontMatched = !isEmptyOrNull(front) && str.startsWith(front);
-            if(frontMatched && !isEmptyOrNull(end) && str.contains(end)){
-                int index = str.lastIndexOf(end);
-                if(index + end.length() == str.length()){
-                    str = str.substring(front.length(), index);
+            if(!isEmptyOrNull(front)){
+                if(str.startsWith(front)){
+                    str = str.substring(front.length());
+                    retry = true;
+                }
+            }
+            if(!isEmptyOrNull(end)){
+                if(str.endsWith(end)){
+                    str = str.substring(0, str.length() - end.length());
                     retry = true;
                 }
             }
         }
-        
         return str;
     }
     public static String stackTraceOf(Exception e) {
