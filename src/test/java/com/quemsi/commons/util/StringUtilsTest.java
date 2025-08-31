@@ -45,4 +45,11 @@ public class StringUtilsTest {
         String combined = StringUtils.combine(firstName, lastName, " ");
         assertThat(combined, equalTo("Frank"));
     }
+
+    @Test
+    public void testTrimWithParentheses() {
+        String input = "(getdate())";
+        String result = StringUtils.trimSymetric(input, "(", ")");
+        assertThat(result, equalTo("getdate()"));
+    }
 }

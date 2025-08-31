@@ -22,6 +22,17 @@ public class StringUtils extends org.springframework.util.StringUtils {
     public static String trim(String str) {
     	return str==null?str:str.trim();
     }
+    public static String trimSymetric(String str, String front, String end){
+        if (str == null) {
+            return null;
+        }
+        if (!isEmptyOrNull(front) && !isEmptyOrNull(end)
+                && str.startsWith(front) && str.endsWith(end)
+                && str.length() >= front.length() + end.length()) {
+            return str.substring(front.length(), str.length() - end.length());
+        }
+        return str;
+    }
     public static String trim(String str, String front, String end) {
     	if(str == null){
             return null;
