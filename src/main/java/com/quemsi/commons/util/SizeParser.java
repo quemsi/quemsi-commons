@@ -9,7 +9,9 @@ public class SizeParser {
     private final static long GB_FACTOR = 1024 * MB_FACTOR;
 
     public static long parse(String val, String type) {
-        
+        if(val == null){
+            return 0L;
+        }
         double ret = Double.parseDouble(val);
         switch (type) {
             case "GB":
@@ -22,7 +24,10 @@ public class SizeParser {
         return -1;
     }
 
-    public static String toString(long bytes){
+    public static String toString(Long bytes){
+        if(bytes == null){
+            return null;
+        }
         BigDecimal raw = null;
         String unit = null;
         if(bytes < MB_FACTOR){
