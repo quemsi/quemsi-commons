@@ -15,6 +15,12 @@ public interface OnewayMapper<D, E> {
 		}
 		return Optional.of(toDTO(e.get()));
 	}
+	default Optional<D> toOptionalDTO(E e){
+		if(e == null){
+			return null;
+		}
+		return Optional.of(toDTO(e));
+	}
 	D toDTO(E entity);
 	List<D> toDTOList(List<E> entities);
 	@SuppressWarnings("unchecked")
