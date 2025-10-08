@@ -76,4 +76,17 @@ public class StringUtils extends org.springframework.util.StringUtils {
         }
         return sb.toString();
     }
+
+    public static String ensureSeperator(String path1, String path2){
+        if(path1 == null || !path1.startsWith("/")){
+            path1 = "/" + path1;
+        }
+        if(path2 == null || !path2.startsWith("/")){
+            path2 = "/" + path2;
+        }
+        if(path1.endsWith("/")){
+            return path1 + path2.substring(1);
+        }
+        return path1 + path2;
+    }
 }
