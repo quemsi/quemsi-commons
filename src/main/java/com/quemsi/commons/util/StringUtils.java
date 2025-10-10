@@ -2,6 +2,8 @@ package com.quemsi.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class StringUtils extends org.springframework.util.StringUtils {
 
@@ -54,6 +56,28 @@ public class StringUtils extends org.springframework.util.StringUtils {
             }
         }
         return str;
+    }
+    public static String removePathPrefix(String path, String prefix) {
+        if(path == null || prefix == null){
+            return trim(path, "/", null);
+        }
+        String trimmedPath = trim(path, "/", null);
+        String trimmedPrefix = trim(prefix, "/", null);
+        String result = null;
+        if(trimmedPath.startsWith(trimmedPrefix)){
+            result = trimmedPath.substring(trimmedPrefix.length());
+        }
+        if(result == null){
+            result = path;
+        }
+        return trim(result, "/", null);
+    }
+
+    public static String buildPath(String separator,String... parts) {
+        if(parts == null || parts.length == 0){
+            return null;
+        }
+        return Arrays.stream(parts).map(p -> trim(p, "/", null)).filter(p -> !isEmptyOrNull(p)) .collect(Collectors.joining(separator));
     }
     public static String stackTraceOf(Exception e) {
     	StringWriter sw = new StringWriter();

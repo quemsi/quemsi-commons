@@ -52,4 +52,68 @@ public class StringUtilsTest {
         String result = StringUtils.trimSymetric(input, "(", ")");
         assertThat(result, equalTo("getdate()"));
     }
+
+    @Test
+    public void testRemovePathPrefixWhenPathStartsWithPrefix() {
+        String path = "/api/users/123";
+        String prefix = "/api";
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo("users/123"));
+    }
+
+    @Test
+    public void testRemovePathPrefixWhenPathIsNull() {
+        String path = null;
+        String prefix = "/api";
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo(null));
+    }
+
+    @Test
+    public void testRemovePathPrefixWhenPrefixIsNull() {
+        String path = "/api/users/123";
+        String prefix = null;
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo("api/users/123"));
+    }
+
+    @Test
+    public void testRemovePathPrefixWhenPathStartsWithTrimmedPrefix() {
+        String path = "api/users/123";
+        String prefix = "/api/";
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo("users/123"));
+    }
+
+    @Test
+    public void testRemovePathPrefixWhenPathStartsWithSlashAndPrefix() {
+        String path = "/api/users/123";
+        String prefix = "api";
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo("users/123"));
+    }
+
+    @Test
+    public void testRemovePathPrefixWhenPrefixNotFound() {
+        String path = "/api/users/123";
+        String prefix = "/v1";
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo("api/users/123"));
+    }
+
+    @Test
+    public void testRemovePathPrefixWithEmptyPrefix() {
+        String path = "/api/users/123";
+        String prefix = "";
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo("api/users/123"));
+    }
+
+    @Test
+    public void testRemovePathPrefixWithExactMatch() {
+        String path = "/api";
+        String prefix = "/api";
+        String result = StringUtils.removePathPrefix(path, prefix);
+        assertThat(result, equalTo(""));
+    }    
 }
