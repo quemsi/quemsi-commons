@@ -25,16 +25,20 @@ public class ApacheDurationDeserializer extends DurationDeserializer {
             }
             Integer[] arr = vals.reversed().toArray(new Integer[vals.size()]);
             long seconds = 0;
-            if(arr.length > 0){ // seconds
+            /* Seconds */
+            if(arr.length > 0){
                 seconds += arr[0];
             }
-            if(arr.length > 1){ //minutes
+            /* Minutes */
+            if(arr.length > 1){
                 seconds += arr[1] * 60;
             }
-            if(arr.length > 2){ // hours
+            /* Hours */
+            if(arr.length > 2){
                 seconds += arr[2] * 60 * 60;
             }
-            if(arr.length > 3){ // days
+            /* Days */
+            if(arr.length > 3){
                 seconds += arr[3] * 24 * 60 * 60;
             }
             return Duration.ofSeconds(seconds);
