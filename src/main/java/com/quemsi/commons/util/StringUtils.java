@@ -2,6 +2,8 @@ package com.quemsi.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class StringUtils extends org.springframework.util.StringUtils {
 
@@ -21,6 +23,61 @@ public class StringUtils extends org.springframework.util.StringUtils {
     }
     public static String trim(String str) {
     	return str==null?str:str.trim();
+    }
+    public static String trimSymetric(String str, String front, String end){
+        if (str == null) {
+            return null;
+        }
+        if (!isEmptyOrNull(front) && !isEmptyOrNull(end)
+                && str.startsWith(front) && str.endsWith(end)
+                && str.length() >= front.length() + end.length()) {
+            return str.substring(front.length(), str.length() - end.length());
+        }
+        return str;
+    }
+    public static String trim(String str, String front, String end) {
+    	if(str == null){
+            return null;
+        }
+        boolean retry = true;
+        while (retry) {
+            retry = false;
+            if(!isEmptyOrNull(front)){
+                if(str.startsWith(front)){
+                    str = str.substring(front.length());
+                    retry = true;
+                }
+            }
+            if(!isEmptyOrNull(end)){
+                if(str.endsWith(end)){
+                    str = str.substring(0, str.length() - end.length());
+                    retry = true;
+                }
+            }
+        }
+        return str;
+    }
+    public static String removePathPrefix(String path, String prefix) {
+        if(path == null || prefix == null){
+            return trim(path, "/", null);
+        }
+        String trimmedPath = trim(path, "/", null);
+        String trimmedPrefix = trim(prefix, "/", null);
+        String result = null;
+        if(trimmedPath.startsWith(trimmedPrefix)){
+            result = trimmedPath.substring(trimmedPrefix.length());
+        }
+        if(result == null){
+            result = path;
+        }
+        return trim(result, "/", null);
+    }
+
+    public static String buildPath(String separator,String... parts) {
+        if(parts == null || parts.length == 0){
+            return null;
+        }
+        return Arrays.stream(parts).map(p -> trim(p, "/", null)).filter(p -> !isEmptyOrNull(p)) .collect(Collectors.joining(separator));
     }
     public static String stackTraceOf(Exception e) {
     	StringWriter sw = new StringWriter();
@@ -42,5 +99,27 @@ public class StringUtils extends org.springframework.util.StringUtils {
             sb.append(second);
         }
         return sb.toString();
+    }
+
+    public static String ensureSeperator(String path1, String path2){
+        if(path1 == null || !path1.startsWith("/")){
+            path1 = "/" + path1;
+        }
+        if(path2 == null || !path2.startsWith("/")){
+            path2 = "/" + path2;
+        }
+        if(path1.endsWith("/")){
+            return path1 + path2.substring(1);
+        }
+        return path1 + path2;
+    }
+    public static boolean equalsIgnoreCase(String str1, String str2){
+        if(str1 == null && str2 == null){
+            return true;
+        }
+        if(str1 == null || str2 == null){
+            return false;
+        }
+        return str1.equalsIgnoreCase(str2);
     }
 }

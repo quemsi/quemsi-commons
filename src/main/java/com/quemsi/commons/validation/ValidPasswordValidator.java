@@ -19,7 +19,7 @@ public class ValidPasswordValidator implements ConstraintValidator<ValidPassword
     	if(password != null) {
 	    	String regex = "^(?=.*[0-9])"
 	                       + "(?=.*[a-z])(?=.*[A-Z])"
-//	                       + "(?=.*[@#$%^&+=])"
+/*	                       + "(?=.*[@#$%^&+=])" */
 	                       + "(?=\\S+$).{3,100}$";
 	        
 	        Pattern p = Pattern.compile(regex);

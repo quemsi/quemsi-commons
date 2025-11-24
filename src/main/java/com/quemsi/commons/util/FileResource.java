@@ -1,10 +1,10 @@
 package com.quemsi.commons.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -23,12 +23,17 @@ public class FileResource implements MultipartFile {
     private String contentType;
     private boolean empty;
     private long size;
-    private InputStream inputStream;
+    private byte[] data;
 
 
     @Override
     public byte[] getBytes() throws IOException {
-        return IOUtils.toByteArray(inputStream);
+        return data;
+    }
+
+    @Override
+    public InputStream getInputStream(){
+        return new ByteArrayInputStream(data);
     }
 
     @Override

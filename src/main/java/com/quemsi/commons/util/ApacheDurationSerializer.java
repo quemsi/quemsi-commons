@@ -18,19 +18,17 @@ public class ApacheDurationSerializer extends DurationSerializer {
         if (Objects.nonNull(duration)) {
             long ticks = duration.toSeconds();
             int[] components = new int[4];
-            components[3] =(int)ticks % 60; //seconds
+            /* Seconds */
+            components[3] =(int)ticks % 60;
             ticks = ticks / 60;
-            if(ticks > 0){
-                components[2] = (int)ticks % 60; //minutes
-                ticks = ticks / 60;
-                if(ticks > 0){
-                    components[1] = (int)ticks % 24; // hours
-                    ticks = ticks / 24;
-                    if(ticks > 0){
-                        components[0] = (int)ticks; //days
-                    }
-                }
-            }
+            /* Minutes */
+            components[2] = (int)ticks % 60;
+            ticks = ticks / 60;
+            /* Hours */
+            components[1] = (int)ticks % 24;
+            ticks = ticks / 24;
+            /* Days */
+            components[0] = (int)ticks;
             generator.writeArray(components, 0, components.length);
         } else {
             super.serialize(duration, generator, provider);

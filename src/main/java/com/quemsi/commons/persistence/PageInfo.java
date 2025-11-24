@@ -10,6 +10,7 @@ public class PageInfo {
 	private int pageSize;
 	private String orderBy;
 	private Boolean asc;
+	private boolean unpaged;
 	
 	public boolean isOrdered() {
 		return orderBy != null;

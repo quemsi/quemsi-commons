@@ -34,6 +34,7 @@ public class FileNameUtil {
 		extensionTypeMap.put("cab", "application/cab");
 		extensionTypeMap.put("html", "text/html");
 		extensionTypeMap.put("htm", "text/html");
+		extensionTypeMap.put("json", "application/json");
 		extensionTypeMap.put("default", "application/octet-stream");
     }
 	public String getFileType(String fileName) {
