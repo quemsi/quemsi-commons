@@ -113,6 +113,19 @@ public class StringUtils extends org.springframework.util.StringUtils {
         }
         return path1 + path2;
     }
+    public static String toWindowsPath(String path){
+        if(path == null){
+            return null;
+        }
+        if(path.startsWith("/")){
+            return path.substring(1);
+        }
+        path = path.replace("/", "\\");
+        if(path.endsWith("\\")){
+            return path.substring(0, path.length() - 1);
+        }
+        return path;
+    }
     public static boolean equalsIgnoreCase(String str1, String str2){
         if(str1 == null && str2 == null){
             return true;

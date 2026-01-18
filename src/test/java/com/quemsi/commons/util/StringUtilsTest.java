@@ -116,4 +116,25 @@ public class StringUtilsTest {
         String result = StringUtils.removePathPrefix(path, prefix);
         assertThat(result, equalTo(""));
     }    
+
+    @Test
+    public void testToWindowsPathWhenLeadingSlash() {
+        String path = "/var/log/app";
+        String result = StringUtils.toWindowsPath(path);
+        assertThat(result, equalTo("var/log/app"));
+    }
+
+    @Test
+    public void testToWindowsPathWithBackslashes() {
+        String path = "c:/storage/root";
+        String result = StringUtils.toWindowsPath(path);
+        assertThat(result, equalTo("c:\\storage\\root"));
+    }
+
+    @Test
+    public void testToWindowsPathWithTrailingBackslash() {
+        String path = "c:\\storage/root";
+        String result = StringUtils.toWindowsPath(path);
+        assertThat(result, equalTo("c:\\storage\\root"));
+    }
 }
