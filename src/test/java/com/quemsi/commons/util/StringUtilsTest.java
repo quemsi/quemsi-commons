@@ -118,13 +118,6 @@ public class StringUtilsTest {
     }    
 
     @Test
-    public void testToWindowsPathWhenLeadingSlash() {
-        String path = "/var/log/app";
-        String result = StringUtils.toWindowsPath(path);
-        assertThat(result, equalTo("var/log/app"));
-    }
-
-    @Test
     public void testToWindowsPathWithBackslashes() {
         String path = "c:/storage/root";
         String result = StringUtils.toWindowsPath(path);

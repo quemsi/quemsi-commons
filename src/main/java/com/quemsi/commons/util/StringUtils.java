@@ -118,7 +118,7 @@ public class StringUtils extends org.springframework.util.StringUtils {
             return null;
         }
         if(path.startsWith("/")){
-            return path.substring(1);
+            path = path.substring(1);
         }
         path = path.replace("/", "\\");
         if(path.endsWith("\\")){
