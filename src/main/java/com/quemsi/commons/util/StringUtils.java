@@ -117,14 +117,12 @@ public class StringUtils extends org.springframework.util.StringUtils {
         if(path == null){
             return null;
         }
-        if(path.startsWith("/")){
-            path = path.substring(1);
-        }
-        path = path.replace("/", "\\");
-        if(path.endsWith("\\")){
-            return path.substring(0, path.length() - 1);
-        }
-        return path;
+        String sanitizedPath = Arrays.stream(path.split("/"))
+            .filter(t -> !isEmptyOrNull(t))
+            .flatMap(t -> Arrays.stream(t.split("\\\\")))
+            .filter(t -> !isEmptyOrNull(t))
+            .collect(Collectors.joining("\\"));
+        return sanitizedPath;
     }
     public static boolean equalsIgnoreCase(String str1, String str2){
         if(str1 == null && str2 == null){

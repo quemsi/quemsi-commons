@@ -130,4 +130,11 @@ public class StringUtilsTest {
         String result = StringUtils.toWindowsPath(path);
         assertThat(result, equalTo("c:\\storage\\root"));
     }
+
+    @Test
+    public void testToWindowsPathWithUnixPath() {
+        String path = "/c:\\quemsi\\/storage-root";
+        String result = StringUtils.toWindowsPath(path);
+        assertThat(result, equalTo("c:\\quemsi\\storage-root"));
+    }
 }
