@@ -68,13 +68,6 @@ public class Exceptions {
 		this.extra.put(key, value);
 		return this;
 	}
-	public Exceptions withExtra(Map<String, Object> extra) {
-		if(this.extra == null) {
-			this.extra = new HashMap<>();
-		}
-		this.extra.putAll(extra);
-		return this;
-	}
 	public Exceptions withCause(Throwable cause) {
 		this.cause = cause;
 		return this;
