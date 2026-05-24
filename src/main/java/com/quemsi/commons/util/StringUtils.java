@@ -102,7 +102,7 @@ public class StringUtils extends org.springframework.util.StringUtils {
     }
 
     public static String ensureSeperator(String path1, String path2){
-        if(path1 == null || !path1.startsWith("/")){
+        if(path1 == null || (!path1.startsWith("/") && !path1.startsWith("~") && !path1.startsWith("."))){
             path1 = "/" + path1;
         }
         if(path2 == null || !path2.startsWith("/")){
