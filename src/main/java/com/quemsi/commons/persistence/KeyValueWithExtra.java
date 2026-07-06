@@ -14,10 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class KeyValueWithExtra extends KeyValue {
 	private Map<String, Object> extra;
-	
+	private String processedMessage;
 	@Builder
-	public KeyValueWithExtra(String key, String value, Map<String, Object> extra) {
+	public KeyValueWithExtra(String key, String value, Map<String, Object> extra, String processedMessage) {
 		super(key, value);
 		this.extra = extra;
+		this.processedMessage = processedMessage;
 	}
 }

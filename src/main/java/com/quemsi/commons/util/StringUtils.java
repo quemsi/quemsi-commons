@@ -102,7 +102,7 @@ public class StringUtils extends org.springframework.util.StringUtils {
     }
 
     public static String ensureSeperator(String path1, String path2){
-        if(path1 == null || !path1.startsWith("/")){
+        if(path1 == null || (!path1.startsWith("/") && !path1.startsWith("~") && !path1.startsWith("."))){
             path1 = "/" + path1;
         }
         if(path2 == null || !path2.startsWith("/")){
@@ -112,6 +112,17 @@ public class StringUtils extends org.springframework.util.StringUtils {
             return path1 + path2.substring(1);
         }
         return path1 + path2;
+    }
+    public static String toWindowsPath(String path){
+        if(path == null){
+            return null;
+        }
+        String sanitizedPath = Arrays.stream(path.split("/"))
+            .filter(t -> !isEmptyOrNull(t))
+            .flatMap(t -> Arrays.stream(t.split("\\\\")))
+            .filter(t -> !isEmptyOrNull(t))
+            .collect(Collectors.joining("\\"));
+        return sanitizedPath;
     }
     public static boolean equalsIgnoreCase(String str1, String str2){
         if(str1 == null && str2 == null){

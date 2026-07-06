@@ -2,6 +2,7 @@ package com.quemsi.commons.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -134,6 +135,19 @@ public class Exceptions {
                 return fe.get();
             } catch (Exception e) {
                 throw Exceptions.server("exception-occured").withCause(e).get();
+            }
+        };
+	}
+	@FunctionalInterface
+	public static interface BiConsumerWithException<T, U, E extends Exception>{
+	    void accept(T t, U u) throws E;
+	}
+	public static <T, U, E extends Exception> BiConsumer<T, U> wrapBiConsumer(BiConsumerWithException<T, U, E> fe) {
+        return (t, u) -> {
+            try {
+                fe.accept(t, u);
+            } catch (Exception e) {
+				throw Exceptions.server("exception-occured").withCause(e).get();
             }
         };
 	}

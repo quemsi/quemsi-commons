@@ -140,4 +140,17 @@ public class CommonOps {
 		}
 		return supplier.get();
 	}
+
+	public static String sanitizePath(String path){
+		if(path == null){
+			return null;
+		}
+		if(path.startsWith("~")){
+			String home = System.getProperty("user.home");
+			if(!StringUtils.isEmptyOrNull(home)	){
+				path = path.replaceFirst("^~", home);
+			}
+		}
+		return path;
+	}
 }

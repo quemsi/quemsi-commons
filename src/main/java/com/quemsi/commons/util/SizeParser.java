@@ -13,7 +13,7 @@ public class SizeParser {
             return 0L;
         }
         double ret = Double.parseDouble(val);
-        switch (type) {
+        switch (type.toUpperCase()) {
             case "GB":
                 return (long)(ret * GB_FACTOR);
             case "MB":
