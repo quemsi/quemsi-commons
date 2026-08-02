@@ -1,5 +1,9 @@
 package com.quemsi.commons.util;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Arrays;
+
 import lombok.Getter;
 
 public class LogMessage {
@@ -7,6 +11,12 @@ public class LogMessage {
     private String level;
     private String[] formats;
     private Object[] args;
+    @Getter
+    private String messageId;
+    @Getter
+    private String cause;
+    @Getter
+    private String stackTrace;
     
     // Factory methods without format parameter, defaulting to null format
     public static LogMessage info(Object... args) {
@@ -36,6 +46,15 @@ public class LogMessage {
     public static LogMessage debug(String format, Object... args) {
         return new LogMessage("DEBUG", format, args);
     }
+
+    /**
+     * Short human message in {@link #toString()}, with messageId/cause/stackTrace as structured fields.
+     */
+    public static LogMessage errorWithCause(String tag, Throwable throwable) {
+        LogMessage message = new LogMessage("ERROR", "{}", tag);
+        message.fillFromThrowable(throwable);
+        return message;
+    }
     
     public LogMessage(String level, String format, Object... args) {
         this.level = level;
@@ -44,7 +63,50 @@ public class LogMessage {
         } else {
             this.formats = format.split("\\{\\}");
         }
-        this.args = args;
+        Object[] messageArgs = args != null ? args : new Object[0];
+        if (messageArgs.length > 0 && messageArgs[messageArgs.length - 1] instanceof Throwable throwable) {
+            fillFromThrowable(throwable);
+            messageArgs = Arrays.copyOf(messageArgs, messageArgs.length - 1);
+        }
+        this.args = messageArgs;
+    }
+
+    private void fillFromThrowable(Throwable throwable) {
+        if (throwable == null) {
+            return;
+        }
+        BaseRuntimeException bre = firstBaseRuntimeException(throwable);
+        if (bre != null) {
+            this.messageId = bre.getMessageId();
+        }
+        Throwable root = rootCause(throwable);
+        String rootMessage = root != null ? root.getMessage() : null;
+        if (rootMessage == null || rootMessage.isBlank()) {
+            rootMessage = root != null ? root.getClass().getSimpleName() : throwable.getClass().getSimpleName();
+        }
+        this.cause = rootMessage;
+        StringWriter sw = new StringWriter();
+        throwable.printStackTrace(new PrintWriter(sw));
+        this.stackTrace = sw.toString();
+    }
+
+    private static BaseRuntimeException firstBaseRuntimeException(Throwable throwable) {
+        Throwable current = throwable;
+        while (current != null) {
+            if (current instanceof BaseRuntimeException bre) {
+                return bre;
+            }
+            current = current.getCause();
+        }
+        return null;
+    }
+
+    private static Throwable rootCause(Throwable throwable) {
+        Throwable current = throwable;
+        while (current.getCause() != null && current.getCause() != current) {
+            current = current.getCause();
+        }
+        return current;
     }
 
     @Override
