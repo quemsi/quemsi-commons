@@ -17,6 +17,8 @@ public class LogMessage {
     private String cause;
     @Getter
     private String stackTrace;
+    /** Optional long payload (JSON, dumps); kept out of {@link #toString()}/_msg. */
+    private Object detail;
     
     // Factory methods without format parameter, defaulting to null format
     public static LogMessage info(Object... args) {
@@ -54,6 +56,19 @@ public class LogMessage {
         LogMessage message = new LogMessage("ERROR", "{}", tag);
         message.fillFromThrowable(throwable);
         return message;
+    }
+
+    /**
+     * Attach a long payload shown collapsed in the UI (not part of the short message).
+     * Accepts {@link DelayedFormatter} / any object; stringified when {@link #getDetail()} is called.
+     */
+    public LogMessage withDetail(Object detail) {
+        this.detail = detail;
+        return this;
+    }
+
+    public String getDetail() {
+        return detail == null ? null : String.valueOf(detail);
     }
     
     public LogMessage(String level, String format, Object... args) {
