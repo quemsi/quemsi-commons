@@ -68,7 +68,14 @@ public class LogMessage {
     }
 
     public String getDetail() {
-        return detail == null ? null : String.valueOf(detail);
+        if (detail == null) {
+            return null;
+        }
+        try {
+            return String.valueOf(detail);
+        } catch (RuntimeException e) {
+            return "(detail unavailable: " + e.getMessage() + ")";
+        }
     }
     
     public LogMessage(String level, String format, Object... args) {
